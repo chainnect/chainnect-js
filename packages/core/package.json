@@ -1,0 +1,97 @@
+{
+  "name": "@chainnect/core",
+  "version": "0.0.1",
+  "description": "Generic blockchain agnostic client library",
+  "main": "lib/chainnect.umd.js",
+  "module": "lib/chainnect.modern.js",
+  "types": "lib/chainnect.d.ts",
+  "source": "src/index.d.ts",
+  "author": "Pelle Braendgaard <pelleb@gmail.com>",
+  "files": [
+    "lib",
+    "dist",
+    "src",
+    "docs",
+    "README.md"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chainnect/chainnect-js.git"
+  },
+  "dependencies": {
+    "jsbi": "^3.1.1",
+    "rxjs": "^6.5.4"
+  },
+  "scripts": {
+    "build:js": "./node_modules/.bin/pack build",
+    "build": "npm run build:js",
+    "test": "./node_modules/.bin/jest --coverage",
+    "test:watch": "./node_modules/.bin/jest --watch",
+    "test:ci": "./node_modules/.bin/jest -u --coverage && cat ./coverage/lcov.info | ./node_modules/.bin/codacy-coverage -v",
+    "dev": "./node_modules/.bin/microbundle --watch",
+    "format": "./node_modules/.bin/prettier --write src/**/*",
+    "build:docs": "./node_modules/.bin/typedoc --theme markdown --out docs/ src/nacldid.ts ./index.d.ts",
+    "prepare": "npm run build"
+  },
+  "@pika/pack": {
+    "pipeline": [
+      [
+        "@pika/plugin-standard-pkg"
+      ],
+      [
+        "@pika/plugin-build-node"
+      ],
+      [
+        "@pika/plugin-build-web"
+      ],
+      [
+        "@pika/plugin-build-types"
+      ],
+      [
+        "@pika/plugin-bundle-web"
+      ]
+    ]
+  },
+  "devDependencies": {
+    "@pika/pack": "^0.5.0",
+    "@pika/plugin-build-node": "^0.8.1",
+    "@pika/plugin-build-types": "^0.8.1",
+    "@pika/plugin-build-web": "^0.8.1",
+    "@pika/plugin-standard-pkg": "^0.8.1",
+    "@types/jest": "^24.9.0",
+    "@types/mockdate": "^2.0.0",
+    "@types/node": "^13.1.7",
+    "codacy-coverage": "^3.4.0",
+    "jest": "^24.9.0",
+    "mockdate": "^2.0.2",
+    "prettier": "^1.19.1",
+    "regenerator-runtime": "^0.13.3",
+    "ts-jest": "^24.3.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typedoc": "^0.15.0",
+    "typedoc-plugin-markdown": "^2.1.7",
+    "typescript": "^3.7.5"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json"
+    ],
+    "coverageDirectory": "./coverage/",
+    "collectCoverageFrom": [
+      "src/**/*.{ts,tsx}",
+      "!src/**/*.d.ts",
+      "!**/node_modules/**"
+    ]
+  }
+}
