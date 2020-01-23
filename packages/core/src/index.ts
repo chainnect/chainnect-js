@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import JSBI from 'jsbi'
 const BigInt = JSBI.BigInt
 
@@ -26,26 +26,23 @@ export interface Transaction {
   readonly status: TransactionStatus
 }
 
-export interface TransferRequest {
+export interface TransactionRequest {}
+
+export interface TransferRequest extends TransactionRequest {
   readonly from?: string
   readonly to: string
   readonly amount: JSBI
 }
 
-export interface Transfer extends Transaction, TransferRequest { }
+export interface Transfer extends Transaction, TransferRequest {}
 
-export interface DataResult {
-  readonly data: any
-  readonly block: JSBI
-}
+export interface Query {}
 
 export interface Chain extends Identifiable {
-  readonly block$: Observable<JSBI>
-  readonly defaultToken: Token
+  readonly block$: Subject<JSBI>
+  readonly defaultToken?: Token
   readonly tokens: Token[]
-  send$(tx: any): Observable<Transaction>
-  call(callData: any): Promise<DataResult>
-  call$(callData: any): Observable<DataResult>
+  send$(tx: TransactionRequest): Observable<Transaction>
 }
 
 export interface Token extends Identifiable {
@@ -74,4 +71,41 @@ export interface AccountRequestResult {
 export interface Wallet {
   readonly accounts: Account[]
   requestAccounts(): AccountRequestResult
+}
+
+export abstract class AbstractChain implements Chain {
+  public readonly id: string
+  public readonly block$: Subject<JSBI>
+  public readonly defaultToken?: Token
+  public readonly tokens: Token[]
+  constructor(id: string) {
+    this.id = id
+    this.tokens = []
+    this.block$ = new Subject<JSBI>()
+    this.createBlockObservable$().subscribe(this.block$)
+  }
+
+  protected abstract createBlockObservable$(): Observable<JSBI>
+  abstract send$(tx: TransactionRequest): Observable<Transaction>
+
+  toObservable<T>(af: () => Promise<T>): Observable<T> {
+    return new Observable(subcriber => {
+      const subscription = this.block$.subscribe(async block => {
+        let value: T | undefined = undefined
+        try {
+          let result = await af()
+          if (value !== result) {
+            value = result
+            subcriber.next(value)
+          }
+        } catch (error) {
+          subcriber.error(error)
+        }
+        return () => {
+          subscription.unsubscribe()
+        }
+      })
+      return subscription
+    })
+  }
 }

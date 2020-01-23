@@ -1963,16 +1963,6 @@
     rollup "^1.1.0"
     rollup-plugin-babel "^4.3.0"
 
-"@pika/plugin-build-types@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-build-types/-/plugin-build-types-0.8.1.tgz#bb9c709a374e8060c22b9853c382d4de3e371124"
-  integrity sha512-0QMRJh85TeinSgnpOkVBIy2RqhYx6CfKXELHEVl9glB1YMJnjlendzSSHUEBo4bXYkx0z2JGkv9IAtQyfwEdTQ==
-  dependencies:
-    "@pika/types" "^0.8.1"
-    execa "^2.0.0"
-    mkdirp "^0.5.1"
-    typescript "~3.4.0"
-
 "@pika/plugin-build-web@^0.8.1":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@pika/plugin-build-web/-/plugin-build-web-0.8.1.tgz#ba519fcd29eed20c1d1091d4083d0be21aa6a5f3"
@@ -1999,13 +1989,13 @@
     rollup-plugin-node-resolve "^4.0.0"
     rollup-plugin-terser "^5.1.1"
 
-"@pika/plugin-standard-pkg@^0.8.1":
+"@pika/plugin-ts-standard-pkg@^0.8.1":
   version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@pika/plugin-standard-pkg/-/plugin-standard-pkg-0.8.1.tgz#07e21cd64ab42e73476cfd8a3aed2e35c5aa0aff"
-  integrity sha512-ZtIUtssKxHVv1wPrzwvCKPXhNeBuJ4s13WCKO1PL7zJwLq8lvxQsLvi47b4mmImrgXU88tIoqDbR1hUx8SgifQ==
+  resolved "https://registry.yarnpkg.com/@pika/plugin-ts-standard-pkg/-/plugin-ts-standard-pkg-0.8.1.tgz#a7bfc303a89e1c31512afe5fdaf1707a14303173"
+  integrity sha512-5uTdQECX4hlxDEx1O8po9oReGfgfYxNRnZixaeVkiSlTMMRXvoiumI2T28YKRc6V0qGecaHe96hcbkoSp6Tbbg==
   dependencies:
     "@pika/types" "^0.8.1"
-    "@types/node" "^10.12.18"
+    execa "^2.0.0"
     standard-pkg "^0.5.0"
 
 "@pika/types@^0.6.0":
@@ -10253,11 +10243,6 @@ typescript@3.7.x, typescript@^3.7.2, typescript@^3.7.5:
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
   integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
-
-typescript@~3.4.0:
-  version "3.4.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.4.5.tgz#2d2618d10bb566572b8d7aad5180d84257d70a99"
-  integrity sha512-YycBxUb49UUhdNMU5aJ7z5Ej2XGmaIBL0x34vZ82fn3hGvD+bgrMrVDpatgz2f7YxUMJxMkbWxJZeAvDxVe7Vw==
 
 uglify-js@^3.1.4:
   version "3.7.5"
